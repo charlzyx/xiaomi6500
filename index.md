@@ -10,7 +10,7 @@ hero:
 features:
   - title: ShellClash
     details: 你相信光吗?
-    link: /guide/shellcrash
+    link: https://github.com/juewuy/ShellCrash/blob/dev/README_CN.md
   - title: tailscale
     details: 我曾经跨过山和大海
     link: /guide/tailscale

@@ -10,13 +10,11 @@ export default defineConfig({
 		darkModeSwitchLabel: false,
 		// https://vitepress.dev/reference/default-theme-config
 		nav: [
-			{ text: "破解", link: "https://www.gaicas.com/xiaomi-be6500-pro.html" },
-			{ text: "ShellCrash", link: "/guide/shellcrash" },
 			{ text: "tailscale", link: "/guide/tailscale" },
-			{ text: "nginx", link: "/guide/nginx" },
+			{ text: "破解", link: "https://www.gaicas.com/xiaomi-be6500-pro.html" },
+			{ text: "ShellCrash", link: "https://github.com/juewuy/ShellCrash/blob/dev/README_CN.md" },
 		],
 		sidebar: [],
-
 		socialLinks: [
 			{ icon: "github", link: "https://github.com/charlzyx/xiaomi6500" },
 		],
