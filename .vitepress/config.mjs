@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
 	title: "小米路由器 BE6500 Pro",
-	// base: "/xiaomi6500",
+	base: "/xiaomi6500",
 	description: "路由器的折腾日记",
 	appearance: "force-dark",
 	themeConfig: {

@@ -7,50 +7,44 @@
 ## install
 
 ```sh
+cd /data/other
 curl https://pkgs.tailscale.com/stable/tailscale_1.70.0_arm64.tgz -o tailscale.tgz
 tar -zxvf tailscale.tgz
 mv tailscale_1.70.0_arm64 tailscale
 rm -rf tailscale.tgz
 ```
 
-## /etc/profile
+##  /data/ShellCrash/misnap_init.sh
 
 ```sh
-echo "source /data/other/autorun.sh" >> /etc/profile
+source /data/other/autorun.sh
 ```
 
-## /data/other/tailscale.init
+## /data/other/tailscale.procd
 
 ```bash
 #!/bin/sh /etc/rc.common
 
 START=99
 SERVICE_DAEMONIZE=1
+SERVICE_WRITE_PID=1
 
-DIR="/data/other/tailscale"
-EXEC="/data/other/tailscale/tailscale"
-DAEMON="/data/other/tailscale/tailscaled"
+TAIL="/data/other/tailscale"
+
+source ${TAIL}/systemd/tailscaled.defaults
+
 
 start(){
-  ${DAEMON} --state=${DIR}/tailscaled.state --socket=/run/tailscale/tailscaled.sock &
-  echo "tailscaled running..."
+  ${TAIL}/tailscaled --port=${PORT} --state=${TAIL}/tailscaled.state --socket=/run/tailscale/tailscaled.sock & echo "tailscaled running..."
 }
 
 stop(){
-  ${EXEC} down
-  ${DAEMON} --cleanup
-  TAILSCALE_PID=$(ps | grep '[tailscale' | awk '{print $1}')
-  # 检查是否找到了进程 ID
-  if [ -z "$TAILSCALE_PID" ]; then
-      echo "没有找到 tailscale 进程。"
-      exit 1
-  fi
-  # 尝试使用 SIGTERM 信号终止进程
-  kill "$TAILSCALE_PID"
+  ${TAIL}/tailscale down
+  ${TAIL}/tailscaled --cleanup
 }
 
 restart(){
-  ${EXEC} up --advertise-exit-node --advertise-routes=10.5.6.0/24
+  ${TAIL}/tailscale up --advertise-exit-node --advertise-routes=10.5.6.0/24
 }
 ```
 
@@ -59,13 +53,13 @@ restart(){
 ```sh
 #!/bin/sh
 
-cp /data/other/tailscale.init /etc/init.d/tailscale
+cp ./tailscale.procd /etc/init.d/tailscale
 
 /etc/init.d/tailscale start
 /etc/init.d/tailscale restart
 
-# cp /data/other/nginx/* /etc/nginx/conf.d/
+cp ./nginx.conf.d/* /etc/nginx/conf.d/
 
-# nginx -s reload
+nginx -s reload
 
 ```
