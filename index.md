@@ -8,6 +8,9 @@ hero:
   # tagline: Why? Case by WiFi 6E >> 1Gbps
 
 features:
+  - title: ssh
+    details: Are You Ok ?
+    link: https://www.gaicas.com/xiaomi-be6500-pro.html
   - title: ShellClash
     details: 你相信光吗?
     link: https://github.com/juewuy/ShellCrash/blob/dev/README_CN.md
