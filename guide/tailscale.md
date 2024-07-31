@@ -28,19 +28,22 @@ source /data/other/autorun.sh
 START=99
 SERVICE_DAEMONIZE=1
 SERVICE_WRITE_PID=1
+PIDFILE=/var/run/tailscaled.pid
 
 TAIL="/data/other/tailscale"
 
 source ${TAIL}/systemd/tailscaled.defaults
 
-
 start(){
-  ${TAIL}/tailscaled --port=${PORT} --state=${TAIL}/tailscaled.state --socket=/run/tailscale/tailscaled.sock & echo "tailscaled running..."
+    start-stop-daemon  -S -b -p $PIDFILE -m \
+      -x $TAIL/tailscaled -- \
+      --port=$PORT \
+      --state=$TAIL/tailscaled.state
+
 }
 
 stop(){
-  ${TAIL}/tailscale down
-  ${TAIL}/tailscaled --cleanup
+  start-stop-daemon  -K  -p $PIDFILE -t
 }
 
 restart(){
