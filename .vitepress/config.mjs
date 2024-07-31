@@ -5,9 +5,9 @@ export default defineConfig({
 	title: "小米路由器 BE6500 Pro",
 	base: "/xiaomi6500",
 	description: "路由器的折腾日记",
-	appearance: "dark",
+	appearance: "force-dark",
 	themeConfig: {
-		// darkModeSwitchLabel: false,
+		darkModeSwitchLabel: false,
 		// https://vitepress.dev/reference/default-theme-config
 		nav: [
 			{ text: "破解", link: "https://www.gaicas.com/xiaomi-be6500-pro.html" },
